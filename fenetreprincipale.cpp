@@ -52,67 +52,12 @@ FenetrePrincipale::~FenetrePrincipale()
 
 FenetrePrincipale::onBoutonCrypterClicked()
 {
-    string textAMettre;
-    QString texte123;
-    string texte_crypte;
-    int decalage;
-    decalage = ligneCle->value();
-
-    texte123 = zoneText->toPlainText();
-    texte123 = texte123.toUpper();
-
-    textAMettre = texte123.toStdString();
-
-
-    Cryptage foncteur(decalage);
-
-    for(string::iterator it = textAMettre.begin(); it!= textAMettre.end(); it++)
-    {
-        if(*it>=65 && *it<=90)
-        texte_crypte += foncteur.decalerLettre(*it);
-        else
-        texte_crypte += *it;
-    }
-
-    QString texte_crypterAEnvoyer;
-    texte_crypterAEnvoyer = QString::fromStdString(texte_crypte);
-
-    FenetreSecondaire fenetre(texte_crypterAEnvoyer);
-
-    fenetre.exec();
+    operation("Crypter");
 }
 
 FenetrePrincipale::onBoutonDecrypterClicked()
 {
-    string texteADecrypter;
-    QString texte123;
-    string texteDecrypter;
-    int decalage;
-    decalage = ligneCle->value();
-
-    texte123 = zoneText->toPlainText();
-    texte123 = texte123.toUpper();
-
-    texteADecrypter = texte123.toStdString();
-
-
-    Decryptage foncteur(decalage);
-
-    for(string::iterator it = texteADecrypter.begin(); it!= texteADecrypter.end(); it++)
-    {
-        if(*it>=65 && *it<=90)
-        texteDecrypter += foncteur.decalerLettre(*it);
-        else
-        texteDecrypter += *it;
-    }
-
-    QString texte_crypterAEnvoyer;
-    texte_crypterAEnvoyer = QString::fromStdString(texteDecrypter);
-
-    FenetreSecondaire fenetre(texte_crypterAEnvoyer);
-
-    fenetre.exec();
-
+    operation("Decrypter");
 }
 
 char Cryptage::decalerLettre(char lettre)
@@ -124,4 +69,55 @@ char Cryptage::decalerLettre(char lettre)
 
     return lettreCrypter;
 }
+
+Decryptage::~Decryptage()
+{}
+
+void FenetrePrincipale::operation(QString type)
+{
+    string textAMettre;
+    QString texte123;
+    string texte_crypte;
+    int decalage;
+    decalage = ligneCle->value();
+
+    texte123 = zoneText->toPlainText();
+    texte123 = texte123.toUpper();
+
+    textAMettre = texte123.toStdString();
+
+    if(type=="Crypter")
+    {
+        texte_crypte = " ";
+        Cryptage foncteur(decalage);
+        for(string::iterator it = textAMettre.begin(); it!= textAMettre.end(); it++)
+        {
+            if(*it>=65 && *it<=90)
+            texte_crypte += foncteur.decalerLettre(*it);
+            else
+        texte_crypte += *it;
+         }
+    }
+
+    if(type=="Decrypter")
+    {
+         Decryptage foncteur(decalage);
+         for(string::iterator it = textAMettre.begin(); it!= textAMettre.end(); it++)
+          {
+            if(*it>=65 && *it<=90)
+            texte_crypte += foncteur.decalerLettre(*it);
+             else
+            texte_crypte += *it;
+          }
+
+    }
+
+    QString texte_crypterAEnvoyer;
+    texte_crypterAEnvoyer = QString::fromStdString(texte_crypte);
+
+    FenetreSecondaire fenetre(texte_crypterAEnvoyer);
+
+    fenetre.exec();
+}
+
 

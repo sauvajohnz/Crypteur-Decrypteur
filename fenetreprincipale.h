@@ -21,6 +21,8 @@ public:
     FenetrePrincipale();
     ~FenetrePrincipale();
 
+    void operation(QString type);
+
 private slots:
 
     onBoutonCrypterClicked();
@@ -42,6 +44,7 @@ class Decryptage
 public:
   Decryptage(int decalage) : m_decalage(decalage)
   {}
+  ~Decryptage();
 
 
   char decalerLettre(char lettre)
