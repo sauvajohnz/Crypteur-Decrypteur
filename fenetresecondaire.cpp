@@ -12,6 +12,7 @@ FenetreSecondaire::FenetreSecondaire(QString text)
     QPlainTextEdit *zoneText = new QPlainTextEdit;
 
     zoneText->setPlainText(text);
+    zoneText->setReadOnly(true);
 
 
     layout->addWidget(zoneText);
