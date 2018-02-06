@@ -21,12 +21,13 @@ public:
     FenetrePrincipale();
     ~FenetrePrincipale();
 
-    void operation(QString type);
+    void operation(QString type, int decalage);
 
 private slots:
 
     onBoutonCrypterClicked();
     onBoutonDecrypterClicked();
+    onBoutonForcerDecrypterClicked();
 
 private:
     QPlainTextEdit *zoneText;
@@ -34,6 +35,9 @@ private:
     QLabel *texteCle;
 
     QString text;
+
+    string textCrypter;
+    int incr;
 
 
 };
